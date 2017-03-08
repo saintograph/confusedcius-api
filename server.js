@@ -1,11 +1,15 @@
-const express        = require('express');
-const MongoClient    = require('mongodb').MongoClient;
-const bodyParser     = require('body-parser');
+import express from 'express';
+import consign from 'consign';
 
-const app            = express()
+const app = express();
 
-const port = 8000;
+const PORT = 3000;
 
-app.listen(port, () => {
-  console.log('We are live on ' + port);
-});
+app.set('json spaces', 4);
+
+consign()
+  .include('models')
+  .then('routes')
+  .into(app);
+
+app.listen(PORT, () => console.log(`Confusedcius API - Port ${PORT}`));
